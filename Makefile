@@ -1,5 +1,8 @@
 
 test:
-	@./support/expresso/bin/expresso -I lib test/*.test.js
+	@./support/expresso/bin/expresso \
+		-I lib \
+		-I support/redis/lib \
+		test/*.test.js
 
 .PHONY: test

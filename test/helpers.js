@@ -5,16 +5,20 @@
  * MIT Licensed
  */
 
-exports.test = function(exports, store) {
-    var name = store.constructor.name;
+exports.test = function(exports, store, fn) {
+    var name = store.constructor.name,
+        fn = fn || function(){},
+        pending = 0;
 
     // #set()
+    ++pending;
     exports[name + '#set()'] = function(assert, beforeExit){
         var called = 0;
 
         store.set('foo', 'bar', function(err){
             ++called;
             assert.ok(!err, 'error in callback');
+            --pending || fn();
         });
 
         beforeExit(function(){
@@ -23,6 +27,7 @@ exports.test = function(exports, store) {
     };
     
     // #get()
+    ++pending;
     exports[name + '#get()'] = function(assert, beforeExit){
         var called = 0;
 
@@ -33,6 +38,7 @@ exports.test = function(exports, store) {
                 ++called;
                 assert.ok(!err, 'error in second callback');
                 assert.equal('tj', name);
+                --pending || fn();
             });
         });
 
@@ -42,6 +48,7 @@ exports.test = function(exports, store) {
     };
     
     // #del()
+    ++pending;
     exports[name + '#del()'] = function(assert, beforeExit){
         var called = 0;
 
@@ -54,6 +61,7 @@ exports.test = function(exports, store) {
                 store.get('name', function(err, name){
                     ++called;
                     assert.ok(!name, '#del() failed');
+                    --pending || fn();
                 });
             });
         });
