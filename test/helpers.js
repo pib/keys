@@ -81,9 +81,12 @@ exports.test = function(exports, store, fn) {
             store.clear(function(err){
                 assert.ok(!err, 'error in callback');
                 store.length(function(err, len){
-                    assert.equal(0, len, '#clear() failed');
+                    assert.equal(0, len, '#clear() failed, got length of ' + len);
+                    --pending || fn();
                 });
             });
         });
     };
+    
+    process.addListener('uncaughtException', fn);
 };
