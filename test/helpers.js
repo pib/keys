@@ -70,4 +70,30 @@ exports.test = function(exports, store, fn) {
             assert.equal(3, called);
         });
     };
+    
+    // #has()
+    ++pending;
+    exports[name + ' #has()'] = function(assert, beforeExit){
+        var called = 0;
+
+        store.del('email', function(){
+            ++called;
+            store.has('email', function(err, exists){
+                ++called;
+                assert.strictEqual(false, exists, '#has() was not false');
+                store.set('email', 'tj@vision-media.ca', function(err){
+                    ++called;
+                    store.has('email', function(err, exists){
+                        ++called;
+                        assert.strictEqual(true, exists, '#has() was not true');
+                        --pending || fn();
+                    });
+                });
+            });
+        });
+
+        beforeExit(function(){
+            assert.equal(4, called);
+        });
+    };
 };
