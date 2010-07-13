@@ -6,4 +6,4 @@
 var helpers = require('./helpers'),
     nStore = require('keys').nStore;
 
-helpers.test(exports, new nStore);
+helpers.test(exports, new nStore({ path: '/tmp/nstore.db' }));
