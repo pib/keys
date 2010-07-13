@@ -12,23 +12,16 @@ exports.test = function(exports, store, fn) {
 
     // #set()
     ++pending;
-    exports[name + '#set()'] = function(assert, beforeExit){
-        var called = 0;
-
+    exports[name + '#set()'] = function(assert){
         store.set('foo', 'bar', function(err){
-            ++called;
             assert.ok(!err, 'error in callback');
             --pending || fn();
-        });
-
-        beforeExit(function(){
-            assert.equal(1, called);
         });
     };
     
     // #get()
     ++pending;
-    exports[name + '#get()'] = function(assert, beforeExit){
+    exports[name + '#get()'] = function(assert){
         store.set('name', 'tj', function(err){
             assert.ok(!err, 'error in callback');
             store.get('name', function(err, name){
@@ -41,7 +34,7 @@ exports.test = function(exports, store, fn) {
     
     // #remove()
     ++pending;
-    exports[name + '#remove()'] = function(assert, beforeExit){
+    exports[name + '#remove()'] = function(assert){
         store.set('name', 'tj', function(err){
             assert.ok(!err, 'error in callback');
             store.remove('name', function(err){
@@ -56,7 +49,7 @@ exports.test = function(exports, store, fn) {
     
     // #has()
     ++pending;
-    exports[name + ' #has()'] = function(assert, beforeExit){
+    exports[name + ' #has()'] = function(assert){
         store.remove('email', function(){
             store.has('email', function(err, exists){
                 assert.strictEqual(false, exists, '#has() was not false');
@@ -67,6 +60,16 @@ exports.test = function(exports, store, fn) {
                     });
                 });
             });
+        });
+    };
+    
+    // #length()
+    ++pending;
+    exports[name + ' #length()'] = function(assert){
+        store.length(function(err, len){
+            assert.ok(!err, 'error in callback');
+            assert.equal('number', typeof len);
+            --pending || fn();
         });
     };
 };
