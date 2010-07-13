@@ -40,4 +40,26 @@ exports.test = function(exports, store) {
             assert.equal(2, called);
         });
     };
+    
+    // #del()
+    exports[name + '#del()'] = function(assert, beforeExit){
+        var called = 0;
+
+        store.set('name', 'tj', function(err){
+            ++called;
+            assert.ok(!err, 'error in callback');
+            store.del('name', function(err){
+                ++called;
+                assert.ok(!err, 'error in second callback');
+                store.get('name', function(err, name){
+                    ++called;
+                    assert.ok(!name, '#del() failed');
+                });
+            });
+        });
+
+        beforeExit(function(){
+            assert.equal(3, called);
+        });
+    };
 };
