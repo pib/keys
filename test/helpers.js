@@ -47,20 +47,20 @@ exports.test = function(exports, store, fn) {
         });
     };
     
-    // #del()
+    // #remove()
     ++pending;
-    exports[name + '#del()'] = function(assert, beforeExit){
+    exports[name + '#remove()'] = function(assert, beforeExit){
         var called = 0;
 
         store.set('name', 'tj', function(err){
             ++called;
             assert.ok(!err, 'error in callback');
-            store.del('name', function(err){
+            store.remove('name', function(err){
                 ++called;
                 assert.ok(!err, 'error in second callback');
                 store.get('name', function(err, name){
                     ++called;
-                    assert.ok(!name, '#del() failed');
+                    assert.ok(!name, '#remove() failed');
                     --pending || fn();
                 });
             });
@@ -76,7 +76,7 @@ exports.test = function(exports, store, fn) {
     exports[name + ' #has()'] = function(assert, beforeExit){
         var called = 0;
 
-        store.del('email', function(){
+        store.remove('email', function(){
             ++called;
             store.has('email', function(err, exists){
                 ++called;
