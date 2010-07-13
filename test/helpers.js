@@ -76,16 +76,18 @@ exports.test = function(exports, store, fn) {
     // #clear()
     ++pending;
     exports[name + ' #clear()'] = function(assert){
-        store.length(function(err, len){
-            assert.ok(len > 0);
-            store.clear(function(err){
-                assert.ok(!err, 'error in callback');
-                store.length(function(err, len){
-                    assert.equal(0, len, '#clear() failed, got length of ' + len);
-                    --pending || fn();
+        setTimeout(function(){
+            store.length(function(err, len){
+                assert.ok(len > 0);
+                store.clear(function(err){
+                    assert.ok(!err, 'error in callback');
+                    store.length(function(err, len){
+                        assert.equal(0, len, '#clear() failed, got length of ' + len);
+                        --pending || fn();
+                    });
                 });
             });
-        });
+        }, 200);
     };
     
     process.addListener('uncaughtException', fn);
