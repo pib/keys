@@ -8,4 +8,7 @@ test:
 		-I support/redis/lib \
 		$(TESTS)
 
-.PHONY: test
+test-cov:
+	@$(MAKE) TEST_FLAGS=--cov
+
+.PHONY: test test-cov
