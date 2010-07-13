@@ -72,4 +72,18 @@ exports.test = function(exports, store, fn) {
             --pending || fn();
         });
     };
+    
+    // #clear()
+    ++pending;
+    exports[name + ' #clear()'] = function(assert){
+        store.length(function(err, len){
+            assert.ok(len > 0);
+            store.clear(function(err){
+                assert.ok(!err, 'error in callback');
+                store.length(function(err, len){
+                    assert.equal(0, len, '#clear() failed');
+                });
+            });
+        });
+    };
 };
