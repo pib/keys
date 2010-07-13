@@ -29,71 +29,44 @@ exports.test = function(exports, store, fn) {
     // #get()
     ++pending;
     exports[name + '#get()'] = function(assert, beforeExit){
-        var called = 0;
-
         store.set('name', 'tj', function(err){
-            ++called;
             assert.ok(!err, 'error in callback');
             store.get('name', function(err, name){
-                ++called;
                 assert.ok(!err, 'error in second callback');
                 assert.equal('tj', name);
                 --pending || fn();
             });
-        });
-
-        beforeExit(function(){
-            assert.equal(2, called);
         });
     };
     
     // #remove()
     ++pending;
     exports[name + '#remove()'] = function(assert, beforeExit){
-        var called = 0;
-
         store.set('name', 'tj', function(err){
-            ++called;
             assert.ok(!err, 'error in callback');
             store.remove('name', function(err){
-                ++called;
                 assert.ok(!err, 'error in second callback');
                 store.get('name', function(err, name){
-                    ++called;
                     assert.ok(!name, '#remove() failed');
                     --pending || fn();
                 });
             });
-        });
-
-        beforeExit(function(){
-            assert.equal(3, called);
         });
     };
     
     // #has()
     ++pending;
     exports[name + ' #has()'] = function(assert, beforeExit){
-        var called = 0;
-
         store.remove('email', function(){
-            ++called;
             store.has('email', function(err, exists){
-                ++called;
                 assert.strictEqual(false, exists, '#has() was not false');
                 store.set('email', 'tj@vision-media.ca', function(err){
-                    ++called;
                     store.has('email', function(err, exists){
-                        ++called;
                         assert.strictEqual(true, exists, '#has() was not true');
                         --pending || fn();
                     });
                 });
             });
-        });
-
-        beforeExit(function(){
-            assert.equal(4, called);
         });
     };
 };
