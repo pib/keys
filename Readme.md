@@ -21,3 +21,18 @@ Currently the following stores are supported:
   * `#length(callback)`           Fetches number of keys -> `callback(err, len)`
   * `#expire(key, ms, callback)`  Expire `key` in `ms` -> `callback(err)`
   * `#clear(callback)`            Clears all keys -> `callback(err)`
+
+## Testing
+
+Run all tests:
+
+	$ make test
+
+Run specific test(s):
+
+	$ make test TESTS=test/memory.test.js
+
+Setup to run all tests:
+
+	$ redis-server &
+	$ riak start
