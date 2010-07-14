@@ -26,6 +26,7 @@ exports.test = function(exports, store, fn) {
             assert.ok(!err, 'error in callback');
             store.get('name', function(err, name){
                 assert.ok(!err, 'error in second callback');
+                assert.equal('string', typeof name);
                 assert.equal('tj', name);
                 --pending || fn();
             });
