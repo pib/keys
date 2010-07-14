@@ -107,7 +107,23 @@ exports.test = function(exports, store, fn) {
                     assert.ok(!err, 'error in callback');
                     store.length(function(err, len){
                         assert.equal(0, len, '#clear() failed, got length of ' + len);
-                        --pending || fn();
+                        
+                        // #each()
+                        store.set('one', 'two', function(){
+                            store.set('two', 'three', function(){
+                                var keys = [],
+                                    vals = [];
+                                store.each(function(err, val, key){
+                                    vals.push(val);
+                                    keys.push(key);
+                                }, function(){
+                                    assert.eql(['one', 'two'], keys);
+                                    assert.eql(['two', 'three'], vals);
+                                    --pending || fn();
+                                });
+                            });
+                        });
+
                     });
                 });
             });
