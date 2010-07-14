@@ -7,3 +7,6 @@
 [submodule "support/nstore"]
 	path = support/nstore
 	url = http://github.com/creationix/nstore.git
+[submodule "support/riak"]
+	path = support/riak
+	url = http://github.com/frank06/riak-js.git
