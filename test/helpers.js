@@ -5,6 +5,12 @@
  * MIT Licensed
  */
 
+/**
+ * Module dependencies.
+ */
+
+var sys = require('sys');
+
 exports.test = function(exports, store, fn) {
     var name = store.constructor.name,
         fn = fn || function(){},
@@ -78,13 +84,15 @@ exports.test = function(exports, store, fn) {
     ++pending;
     exports[name + ' #expire()'] = function(assert){
         store.set('foobar', 'baz', function(){
-           store.expire('foobar', 50);
-           setTimeout(function(){
-                store.get('foobar', function(err, val){
-                    assert.ok(!val, '#expire() failed');
-                    --pending || fn();
-                });
-           }, 100); 
+           store.expire('foobar', 50, function(err){
+               assert.ok(!err, 'error in callback');
+               setTimeout(function(){
+                   store.get('foobar', function(err, val){
+                       assert.ok(!val, '#expire() failed got value ' + sys.inspect(val));
+                       --pending || fn();
+                   });
+               }, 100);
+           });
         });
     };
     
