@@ -26,6 +26,7 @@ exports.test = function(exports, store, fn) {
             assert.ok(!err, 'error in callback');
             store.get('name', function(err, name){
                 assert.ok(!err, 'error in second callback');
+                assert.equal('string', typeof name);
                 assert.equal('tj', name);
                 --pending || fn();
             });
@@ -72,6 +73,21 @@ exports.test = function(exports, store, fn) {
             --pending || fn();
         });
     };
+    
+    // #expire()
+    ++pending;
+    exports[name + ' #expire()'] = function(assert){
+        store.set('foobar', 'baz', function(){
+           store.expire('foobar', 50);
+           setTimeout(function(){
+                store.get('foobar', function(err, val){
+                    assert.ok(!val, '#expire() failed');
+                    --pending || fn();
+                });
+           }, 100); 
+        });
+    };
+    
     
     // #clear()
     ++pending;
