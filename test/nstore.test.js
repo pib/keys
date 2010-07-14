@@ -6,4 +6,7 @@
 var helpers = require('./helpers'),
     nStore = require('keys').nStore;
 
-helpers.test(exports, new nStore({ path: '/tmp/nstore.db' }));
+var store = new nStore({ path: '/tmp/nstore.db', reapInterval: 15 });
+helpers.test(exports, store, function(){
+    store.reaper.destroy();
+});

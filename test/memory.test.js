@@ -6,4 +6,7 @@
 var helpers = require('./helpers'),
     Memory = require('keys').Memory;
 
-helpers.test(exports, new Memory);
+var store = new Memory({ reapInterval: 15 });
+helpers.test(exports, store, function(){
+    store.reaper.destroy();
+});
