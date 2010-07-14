@@ -8,5 +8,5 @@ var helpers = require('./helpers'),
 
 var store = new Memory({ reapInterval: 15 });
 helpers.test(exports, store, function(){
-    clearInterval(store.reaper);
+    store.reaper.destroy();
 });
