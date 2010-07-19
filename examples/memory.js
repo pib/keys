@@ -3,10 +3,9 @@
  * Module dependencies.
  */
 
-require.paths.unshift(process.cwd() + '/support/redis/lib');
 var keys = require('./../lib/keys');
 
-var store = new keys.Redis({ reapInterval: 200 });
+var store = new keys.Memory({ reapInterval: 200 });
 
 store.set('foo', 'bar', function(){
     store.set('bar', 'baz', function(){
