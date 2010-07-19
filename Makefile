@@ -5,7 +5,7 @@ test:
 	@./support/expresso/bin/expresso $(TEST_FLAGS) \
 		-I lib \
 		-I support/nstore/lib \
-		-I support/riak/lib \
+		-I support/microdb/lib \
 		-I support/redis/lib \
 		$(TESTS)
 

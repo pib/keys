@@ -113,10 +113,11 @@ exports.test = function(exports, store, fn) {
                             store.set('two', 'three', function(){
                                 var keys = [],
                                     vals = [];
-                                store.each(function(err, val, key){
+                                store.each(function(val, key){
                                     vals.push(val);
                                     keys.push(key);
-                                }, function(){
+                                }, function(err){
+                                    assert.ok(!err, '#each() done got an error');
                                     assert.eql(['one', 'two'], keys);
                                     assert.eql(['two', 'three'], vals);
                                     --pending || fn();
