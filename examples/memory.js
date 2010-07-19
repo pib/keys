@@ -23,12 +23,12 @@ store.set('foo', 'bar', function(){
                     
                     // Expire
                     store.set('foo', 'bar', function(){
-                        store.expire('foo', 3000);
+                        store.expire('foo', 1500);
                         setTimeout(function(){
                             store.has('foo', function(err, exists){
                                 console.log('expired? %s', !exists);
                             });
-                        }, 4000);
+                        }, 2000);
                     });
                 });
             });
