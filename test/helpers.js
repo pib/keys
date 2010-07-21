@@ -80,23 +80,6 @@ exports.test = function(exports, store, fn) {
         });
     };
     
-    // #expire()
-    ++pending;
-    exports[name + ' #expire()'] = function(assert){
-        store.set('foobar', 'baz', function(){
-           store.expire('foobar', 50, function(err){
-               assert.ok(!err, 'error in callback');
-               setTimeout(function(){
-                   store.get('foobar', function(err, val){
-                       assert.ok(!val, '#expire() failed got value ' + sys.inspect(val));
-                       --pending || fn();
-                   });
-               }, 100);
-           });
-        });
-    };
-    
-    
     // #clear()
     ++pending;
     exports[name + ' #clear()'] = function(assert){
@@ -109,8 +92,8 @@ exports.test = function(exports, store, fn) {
                         assert.equal(0, len, '#clear() failed, got length of ' + len);
                         
                         // #each()
-                        store.set('one', 'two', function(){
-                            store.set('two', 'three', function(){
+                        store.set('one', '1', function(){
+                            store.set('two', '2', function(){
                                 var keys = [],
                                     vals = [];
                                 store.each(function(val, key){
@@ -118,8 +101,10 @@ exports.test = function(exports, store, fn) {
                                     keys.push(key);
                                 }, function(err){
                                     assert.ok(!err, '#each() done got an error');
-                                    assert.eql(['one', 'two'], keys);
-                                    assert.eql(['two', 'three'], vals);
+                                    assert.ok(keys.indexOf('one') >= 0);
+                                    assert.ok(keys.indexOf('two') >= 0);
+                                    assert.ok(vals.indexOf('1') >= 0);
+                                    assert.ok(vals.indexOf('2') >= 0);
                                     --pending || fn();
                                 });
                             });
