@@ -21,7 +21,6 @@ Stores which do not natively support expiration utilize the `Reaper`.
     #remove(key, callback)      Removes key -> callback(err)
     #has(key, callback)         Check if key exists -> callback(err, exists)
     #length(callback)           Fetches number of keys -> callback(err, len)
-    #expire(key, ms, callback)  Expire key in ms -> callback(err)
     #clear(callback)            Clears all keys -> callback(err)
 
 ## Testing
