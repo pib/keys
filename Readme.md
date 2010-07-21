@@ -15,6 +15,8 @@ Stores that specify "requires MODULE" must have the **MODULE** available to `req
 
 ## API
 
+The following is the _current_ API that each store **must** comply to:
+
 ### Store#get(key, callback)
 
  Fetches the given _key_ and `callback(err, val)`.
