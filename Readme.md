@@ -8,9 +8,8 @@
 Currently the following stores are supported:
 
   * Memory
-  * [nStore](http://github.com/creationix/nStore)
+  * [nStore](http://github.com/creationix/nStore) 
   * [Redis](http://github.com/fictorial/redis-node-client)
-  * [Riak](http://github.com/frank06/riak-js)
 
 Stores which do not natively support expiration utilize the `Reaper`.
 
@@ -36,4 +35,3 @@ Run specific test(s):
 Setup to run all tests:
 
 	$ redis-server &
-	$ riak start
