@@ -9,7 +9,7 @@ TESTS = test/*.test.js
 index.html: $(SRC)
 	dox $(SRC) \
 		--title "Keys" \
-		--desc "Unified interface for key/value store clients written for [node](http://nodejs.org)." \
+		--desc "Unified interface for [node](http://nodejs.org) key/value stores." \
 		--ribbon "http://github.com/visionmedia/keys" \
 		> index.html
 

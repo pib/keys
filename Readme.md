@@ -1,7 +1,7 @@
 
 # Keys
 
- Unified interface for key/value store clients written for [node](http://nodejs.org).
+ Unified interface for [node](http://nodejs.org) key/value stores.
 
 ## Supported Stores
 
