@@ -13,6 +13,10 @@ Currently the following stores are supported:
 
 Stores that specify "requires MODULE" must have the **MODULE** available to `require()`.
 
+## Installation
+
+  $ npm install keys
+
 ## API
 
 The following is the _current_ API that each store **must** comply to:
