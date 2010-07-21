@@ -7,11 +7,11 @@
 
 Currently the following stores are supported:
 
-  * Memory
-  * [nStore](http://github.com/creationix/nStore) 
-  * [Redis](http://github.com/fictorial/redis-node-client)
+  * Memory -- no dependency
+  * [nStore](http://github.com/creationix/nStore) -- requires "nstore"
+  * [Redis](http://github.com/fictorial/redis-node-client) -- requires "redis-client"
 
-Stores which do not natively support expiration utilize the `Reaper`.
+Stores that specify "requires MODULE" must have the **MODULE** available to `require()`.
 
 ## API
 
