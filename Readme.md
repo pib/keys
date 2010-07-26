@@ -58,4 +58,6 @@ Run specific test(s):
 
 Setup to run all tests:
 
+	$ npm install riak-js
 	$ redis-server &
+	$ riak start
