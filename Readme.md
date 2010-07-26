@@ -10,6 +10,7 @@ Currently the following stores are supported:
   * Memory -- no dependency
   * [nStore](http://github.com/creationix/nStore) -- requires _nstore_
   * [Redis](http://github.com/fictorial/redis-node-client) -- requires _redis-client_
+  * [Riak](http://github.com/frank06/riak-js) -- requires *upcoming* version 0.3.0 of _riak-js_
 
 Stores that specify "requires MODULE" must have the **MODULE** available to `require()`.
 
@@ -57,4 +58,6 @@ Run specific test(s):
 
 Setup to run all tests:
 
+	$ npm install riak-js
 	$ redis-server &
+	$ riak start
