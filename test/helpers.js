@@ -54,10 +54,10 @@ exports.test = function(exports, store, fn) {
     exports[name + '#get()'] = function(assert){
         store.set('name', 'tj', function(err){
             assert.ok(!err, 'error in callback');
-            store.get('name', function(err, name){
+            store.get('name', function(err, val){
                 assert.ok(!err, 'error in second callback');
-                assert.ok(name instanceof Buffer, name + '#get() failed');
-                assert.equal('tj', name.toString('ascii'));
+                assert.ok(val instanceof Buffer, name + '#get() failed');
+                assert.equal('tj', val.toString('ascii'));
                 --pending || fn();
             });
         });
@@ -121,7 +121,7 @@ exports.test = function(exports, store, fn) {
                                 var keys = [],
                                     vals = [];
                                 store.each(function(val, key){
-                                    vals.push(val);
+                                    vals.push(val.toString('ascii'));
                                     keys.push(key);
                                 }, function(err){
                                     assert.ok(!err, '#each() done got an error');
