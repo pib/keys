@@ -43,6 +43,7 @@ exports.test = function(exports, store, fn) {
             store.get('bin-foo', function(err, val){
                 assert.ok(!err, 'error in second callback');
                 assert.ok(val instanceof Buffer, name + '#get() Buffer failed');
+                assert.equal('foobar', val.toString('ascii'));
                 --pending || fn();
             });
         });
@@ -55,8 +56,8 @@ exports.test = function(exports, store, fn) {
             assert.ok(!err, 'error in callback');
             store.get('name', function(err, name){
                 assert.ok(!err, 'error in second callback');
-                assert.equal('string', typeof name);
-                assert.equal('tj', name);
+                assert.ok(name instanceof Buffer, name + '#get() failed');
+                assert.equal('tj', name.toString('ascii'));
                 --pending || fn();
             });
         });
