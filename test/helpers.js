@@ -39,9 +39,7 @@ exports.test = function(exports, store, fn) {
     ++pending;
     exports[name + '#get() binary'] = function(assert){
         store.set('bin-foo', new Buffer('foobar'), function(err){
-            assert.ok(!err, 'error in callback');
             store.get('bin-foo', function(err, val){
-                assert.ok(!err, 'error in second callback');
                 assert.ok(val instanceof Buffer, name + '#get() Buffer failed');
                 assert.equal('foobar', val.toString('ascii'));
                 --pending || fn();
@@ -53,9 +51,7 @@ exports.test = function(exports, store, fn) {
     ++pending;
     exports[name + '#get()'] = function(assert){
         store.set('name', 'tj', function(err){
-            assert.ok(!err, 'error in callback');
             store.get('name', function(err, val){
-                assert.ok(!err, 'error in second callback');
                 assert.ok(val instanceof Buffer, name + '#get() failed');
                 assert.equal('tj', val.toString('ascii'));
                 --pending || fn();
@@ -67,9 +63,7 @@ exports.test = function(exports, store, fn) {
     ++pending;
     exports[name + '#remove()'] = function(assert){
         store.set('name', 'tj', function(err){
-            assert.ok(!err, 'error in callback');
             store.remove('name', function(err){
-                assert.ok(!err, 'error in second callback');
                 store.get('name', function(err, name){
                     assert.ok(!name, '#remove() failed');
                     --pending || fn();
@@ -98,7 +92,6 @@ exports.test = function(exports, store, fn) {
     ++pending;
     exports[name + ' #length()'] = function(assert){
         store.length(function(err, len){
-            assert.ok(!err, 'error in callback');
             assert.equal('number', typeof len);
             --pending || fn();
         });
@@ -111,7 +104,6 @@ exports.test = function(exports, store, fn) {
             store.length(function(err, len){
                 assert.ok(len > 0);
                 store.clear(function(err){
-                    assert.ok(!err, 'error in callback');
                     store.length(function(err, len){
                         assert.equal(0, len, '#clear() failed, got length of ' + len);
                         
