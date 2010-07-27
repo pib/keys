@@ -9,7 +9,8 @@
  * Module dependencies.
  */
 
-var sys = require('sys');
+var sys = require('sys'),
+    Buffer = require('buffer').Buffer;
 
 exports.test = function(exports, store, fn) {
     var name = store.constructor.name,
@@ -22,6 +23,28 @@ exports.test = function(exports, store, fn) {
         store.set('foo', 'bar', function(err){
             assert.ok(!err, 'error in callback');
             --pending || fn();
+        });
+    };
+    
+    // #set() binary
+    ++pending;
+    exports[name + '#set() binary'] = function(assert){
+        store.set('bin', new Buffer('foobar'), function(err){
+            assert.ok(!err, 'error in callback');
+            --pending || fn();
+        });
+    };
+    
+    // #get() binary
+    ++pending;
+    exports[name + '#get() binary'] = function(assert){
+        store.set('bin-foo', new Buffer('foobar'), function(err){
+            assert.ok(!err, 'error in callback');
+            store.get('bin-foo', function(err, val){
+                assert.ok(!err, 'error in second callback');
+                assert.ok(val instanceof Buffer, name + '#get() Buffer failed');
+                --pending || fn();
+            });
         });
     };
     
