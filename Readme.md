@@ -24,7 +24,7 @@ The following is the _current_ API that each store **must** comply to:
 
 ### Store#get(key, callback)
 
- Fetches the given _key_ and `callback(err, val)`.
+ Fetches the given _key_ and `callback(err, buf)`.
 
 ### Store#set(key, val[, callback])
 

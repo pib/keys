@@ -13,22 +13,14 @@ store.set('foo', 'bar', function(){
         store.each(function(val, key){
             console.log('%s: %s', key, val);
         }, function(){
-            
-            // Clear
-            store.clear(function(){
-                
-                // Length
-                store.length(function(err, len){
-                    console.log('length: %d', len);
-                    
-                    // Expire
-                    store.set('foo', 'bar', function(){
-                        store.expire('foo', 1500);
-                        setTimeout(function(){
-                            store.has('foo', function(err, exists){
-                                console.log('expired? %s', !exists);
-                            });
-                        }, 2000);
+            // Length
+            store.length(function(err, len){
+                console.log('length: %s', len);
+                // Clear
+                store.clear(function(){
+                    // Length
+                    store.length(function(err, len){
+                        console.log('length after clear: %d', len);
                     });
                 });
             });
