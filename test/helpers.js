@@ -17,6 +17,10 @@ exports.test = function(exports, store, fn) {
         fn = fn || function(){},
         pending = 0;
 
+    exports.setup = function(fn){
+        store.clear(fn);
+    };
+
     // #set()
     ++pending;
     exports[name + '#set()'] = function(assert){
@@ -100,36 +104,33 @@ exports.test = function(exports, store, fn) {
     // #clear()
     ++pending;
     exports[name + ' #clear()'] = function(assert){
-        setTimeout(function(){
-            store.length(function(err, len){
-                assert.ok(len > 0);
-                store.clear(function(err){
-                    store.length(function(err, len){
-                        assert.equal(0, len, '#clear() failed, got length of ' + len);
-                        
-                        // #each()
-                        store.set('one', '1', function(){
-                            store.set('two', '2', function(){
-                                var keys = [],
-                                    vals = [];
-                                store.each(function(val, key){
-                                    vals.push(val.toString('ascii'));
-                                    keys.push(key);
-                                }, function(err){
-                                    assert.ok(!err, '#each() done got an error');
-                                    assert.ok(keys.indexOf('one') >= 0);
-                                    assert.ok(keys.indexOf('two') >= 0);
-                                    assert.ok(vals.indexOf('1') >= 0);
-                                    assert.ok(vals.indexOf('2') >= 0);
-                                    --pending || fn();
-                                });
+        store.set('foo', 'bar', function(){
+            store.clear(function(err){
+                store.length(function(err, len){
+                    assert.equal(0, len, '#clear() failed, got length of ' + len);
+
+                    // #each()
+                    store.set('one', '1', function(){
+                        store.set('two', '2', function(){
+                            var keys = [],
+                                vals = [];
+                            store.each(function(val, key){
+                                vals.push(val.toString('ascii'));
+                                keys.push(key);
+                            }, function(err){
+                                assert.ok(!err, '#each() done got an error');
+                                assert.ok(keys.indexOf('one') >= 0);
+                                assert.ok(keys.indexOf('two') >= 0);
+                                assert.ok(vals.indexOf('1') >= 0);
+                                assert.ok(vals.indexOf('2') >= 0);
+                                --pending || fn();
                             });
                         });
-
                     });
+
                 });
             });
-        }, 200);
+        });
     };
     
     process.addListener('uncaughtException', fn);

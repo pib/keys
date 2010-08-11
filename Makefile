@@ -15,6 +15,7 @@ index.html: $(SRC)
 
 test:
 	@./support/expresso/bin/expresso $(TEST_FLAGS) \
+		--serial \
 		-I lib \
 		-I support/nstore/lib \
 		-I support/microdb/lib \
