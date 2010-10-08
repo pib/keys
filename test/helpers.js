@@ -110,10 +110,10 @@ exports.test = function(exports, store, fn) {
                                 keys.push(key);
                             }, function(err){
                                 assert.ok(!err, '#each() done got an error');
-                                assert.ok(keys.indexOf('one') >= 0);
-                                assert.ok(keys.indexOf('two') >= 0);
-                                assert.ok(vals.indexOf('1') >= 0);
-                                assert.ok(vals.indexOf('2') >= 0);
+                                assert.ok(keys.indexOf('one') >= 0, 'key one missing');
+                                assert.ok(keys.indexOf('two') >= 0, 'key two missing');
+                                assert.ok(vals.indexOf('1') >= 0, 'val 1 missing');
+                                assert.ok(vals.indexOf('2') >= 0, 'val 2 missing');
                                 done();
                                 fn();
                             });

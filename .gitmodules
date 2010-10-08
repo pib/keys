@@ -4,3 +4,6 @@
 [submodule "support/nstore"]
 	path = support/nstore
 	url = http://github.com/creationix/nstore.git
+[submodule "support/redis"]
+	path = support/redis
+	url = git://github.com/mranney/node_redis.git

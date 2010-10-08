@@ -8,5 +8,5 @@ var helpers = require('./helpers'),
 
 var store = new Redis;
 helpers.test(exports, store, function(){
-    store.client.close();
+    store.client.end();
 });
