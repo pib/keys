@@ -8,8 +8,8 @@
 Currently the following stores are supported:
 
   * Memory -- no dependency
-  * [nStore](http://github.com/creationix/nStore) -- requires _nstore_
-  * [Redis](http://github.com/fictorial/redis-node-client) -- requires _redis-client_
+  * [nStore](http://github.com/creationix/nStore) -- requires _nstore_ (npm install nstore)
+  * [Redis](http://github.com/mranney/node_redis) -- requires _node_redis_ (npm instasll redis)
   * [Riak](http://github.com/frank06/riak-js) -- requires *upcoming* version 0.3.0 of _riak-js_
 
 Stores that specify "requires MODULE" must have the **MODULE** available to `require()`.
