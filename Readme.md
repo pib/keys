@@ -16,7 +16,7 @@ Stores that specify "requires MODULE" must have the **MODULE** available to `req
 
 ## Installation
 
-  $ npm install keys
+    $ npm install keys
 
 ## API
 
